@@ -35,7 +35,7 @@ class SimpleExtractor
             if( $this->all
                 || ( in_array($this->style, $value['styles']))) {
 
-                $this->formatter->add($key);
+                $this->formatter->add($key, $value);
             }
         }
     }

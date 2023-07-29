@@ -16,12 +16,13 @@ class SimpleFormatter
 
     const MODE_JUST_AN_ARRAY = 0;
     const MODE_KEY_ICON_VALUE_STRING = 1;
+    const MODE_KEY_ICON_VALUE_LABEL = 2;
 
     const CONFIG_PHP_OUTPUT = 'php-output';
     const CONFIG_VALUE_PHP_OUTPUT_RETURN = 'php-output-return';
     const CONFIG_VALUE_PHP_OUTPUT_VARIABLE = 'php-output-variable';
 
-    public function __construct($output_dir, $output_filename, $mode = self::MODE_KEY_ICON_VALUE_STRING, $lang = self::LANG_PHP)
+    public function __construct($output_dir, $output_filename, $mode = self::MODE_KEY_ICON_VALUE_LABEL, $lang = self::LANG_PHP)
     {
         $this->array = [];
         $this->output_dir = $output_dir;
@@ -33,7 +34,7 @@ class SimpleFormatter
         ];
     }
 
-    public function add(&$key)
+    public function add($key, $value)
     {
         switch ($this->mode) {
             case self::MODE_JUST_AN_ARRAY:
@@ -41,8 +42,11 @@ class SimpleFormatter
                 break;
 
             case self::MODE_KEY_ICON_VALUE_STRING:
-            default:
                 $this->array[$key] = str_replace("-", " ", mb_convert_case($key, MB_CASE_TITLE));
+                break;
+            case self::MODE_KEY_ICON_VALUE_LABEL:
+            default:
+                $this->array[$key] = $value['label'];
                 break;
         }
     }
