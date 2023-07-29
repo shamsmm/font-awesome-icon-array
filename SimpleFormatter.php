@@ -2,12 +2,12 @@
 
 class SimpleFormatter
 {
-    private $array;
+    private array $array;
     private $output_dir;
-    private $output_filename;
+    private string $output_filename;
     private $mode;
     private $lang;
-    private $config;
+    private array $config;
 
 
     const LANG_PHP = 'php';
@@ -18,8 +18,8 @@ class SimpleFormatter
     const MODE_KEY_ICON_VALUE_STRING = 1;
 
     const CONFIG_PHP_OUTPUT = 'php-output';
-    const CONFIG_PHP_OUTPUT_RETURN = 'php-output-return';
-    const CONFIG_PHP_OUTPUT_VARIABLE = 'php-output-variable';
+    const CONFIG_VALUE_PHP_OUTPUT_RETURN = 'php-output-return';
+    const CONFIG_VALUE_PHP_OUTPUT_VARIABLE = 'php-output-variable';
 
     public function __construct($output_dir, $output_filename, $mode = self::MODE_KEY_ICON_VALUE_STRING, $lang = self::LANG_PHP)
     {
@@ -29,7 +29,7 @@ class SimpleFormatter
         $this->mode = $mode;
         $this->lang = $lang;
         $this->config = [
-            self::CONFIG_PHP_OUTPUT => self::CONFIG_PHP_OUTPUT_RETURN,
+            self::CONFIG_PHP_OUTPUT => self::CONFIG_VALUE_PHP_OUTPUT_RETURN,
         ];
     }
 
@@ -50,7 +50,7 @@ class SimpleFormatter
     /**
      * @throws Exception
      */
-    public function save()
+    public function saveFile()
     {
         switch ($this->lang) {
             case self::LANG_JS:
@@ -60,9 +60,9 @@ class SimpleFormatter
             default:
                 $data = '';
 
-                if($this->config[self::CONFIG_PHP_OUTPUT] == self::CONFIG_PHP_OUTPUT_RETURN)
+                if($this->config[self::CONFIG_PHP_OUTPUT] == self::CONFIG_VALUE_PHP_OUTPUT_RETURN)
                     $data .= "<?php \n\nreturn " . var_export($this->array, true) . ";";
-                else if($this->config[self::CONFIG_PHP_OUTPUT] == self::CONFIG_PHP_OUTPUT_VARIABLE)
+                else if($this->config[self::CONFIG_PHP_OUTPUT] == self::CONFIG_VALUE_PHP_OUTPUT_VARIABLE)
                     $data .= '<?php \n$icons = ' . var_export($this->array, true) . ";";
                 else
                     throw new Exception("Invalid Configuration.");
@@ -76,7 +76,7 @@ class SimpleFormatter
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getArray()
     {
