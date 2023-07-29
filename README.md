@@ -1,5 +1,5 @@
 # font-awesome-icon-array
-Font Awesome Icons as a customized array, for icon input fields, with custom grouping; Solid, Brands and more.
+New Font Awesome (5 and 6) Icons as a customized array, for icon input fields, with custom grouping; Solid, Brands and Regulars.
 Currently only customized for PHP but can easily be implemented to different languages.
 
 # Usage
